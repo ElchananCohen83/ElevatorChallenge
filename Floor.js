@@ -12,20 +12,22 @@ class Floor {
         const topBorder = document.createElement('div');
         topBorder.className = 'top-border';
 
-        const button = document.createElement('button');
-        button.className = 'metal linear';
-        button.value = this.number;
-        button.textContent = this.number;
-        button.addEventListener('click', () => this.requestElevator());
+        this.button = document.createElement('button');
+        this.button.className = 'metal linear';
+        this.button.value = this.number;
+        this.button.textContent = this.number;
+        this.button.addEventListener('click', () => this.requestElevator());
 
         floor.appendChild(topBorder);
-        floor.appendChild(button);
+        floor.appendChild(this.button);
 
         return floor;
     }
 
-    requestElevator() {
-        this.requestElevatorCallback(this.number);
+    async requestElevator() {
+        this.button.style.color = 'green';
+        await this.requestElevatorCallback(this.number);
+        this.button.style.color = 'black';
     }
 
     prependTo(parent) {

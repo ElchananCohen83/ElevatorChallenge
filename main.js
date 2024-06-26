@@ -9,20 +9,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     elevators.forEach(elevator => elevator.appendTo(building));
 
-    function requestElevator(floorNumber) {
+    async function requestElevator(floorNumber) {
         let closestElevator = null;
         let minDistance = Number.MAX_SAFE_INTEGER;
 
         elevators.forEach(elevator => {
             const distance = Math.abs(elevator.currentFloor - floorNumber);
-            if (distance < minDistance) {
+            if (distance < minDistance && !elevator.isMoving) {
                 minDistance = distance;
                 closestElevator = elevator;
             }
         });
 
         if (closestElevator) {
-            closestElevator.moveToFloor(floorNumber);
+            await closestElevator.moveToFloor(floorNumber);
         }
     }
 
