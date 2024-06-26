@@ -1,6 +1,7 @@
 class Floor {
-    constructor(number) {
+    constructor(number, requestElevatorCallback) {
         this.number = number;
+        this.requestElevatorCallback = requestElevatorCallback;
         this.element = this.createFloor();
     }
 
@@ -15,11 +16,16 @@ class Floor {
         button.className = 'metal linear';
         button.value = this.number;
         button.textContent = this.number;
+        button.addEventListener('click', () => this.requestElevator());
 
         floor.appendChild(topBorder);
         floor.appendChild(button);
 
         return floor;
+    }
+
+    requestElevator() {
+        this.requestElevatorCallback(this.number);
     }
 
     prependTo(parent) {
